@@ -12,9 +12,9 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-//require APPPATH . '/third_party/restful/libraries/Rest_controller.php';
+require APPPATH . '/third_party/restful/libraries/Rest_controller.php';
 
-class administrator_controller extends Application
+class administrator_controller extends Rest_Controller 
 {    
     function __construct() {
         parent::__construct();
@@ -150,6 +150,7 @@ class administrator_controller extends Application
         $this->data['error_messages'] = $this->parser->parse('admin-errors', ['error_messages' => $result], true);
     }
     
+    /*
     // Handle an incoming GET ... return 1 menu item
     //you would reference that with "backend/maintenance/item/id/6".
     function item_get()
@@ -179,6 +180,7 @@ class administrator_controller extends Application
         $this->Stock->update($record);
         $this->response(array('ok'), 200);
     }
+    */
     
     function delete($table) {
         $key = $this->session->userdata('key');
@@ -197,6 +199,7 @@ class administrator_controller extends Application
         }
         $this->index();
     }
+
     
     function add($table) {
         $key = NULL;
