@@ -16,9 +16,6 @@ class administrator_controller extends Application
 {    
     function __construct() {
         parent::__construct();
-        //$this->load->model('Stock');
-        //$this->load->model('Recipes');
-        //$this->load->model('Supplies');
         $this->load->helper('formfields');
         $this->error_messages = array();
     }
@@ -36,7 +33,7 @@ class administrator_controller extends Application
 
         // go through the sources and store the data in there respective arrays
         $result_supplies = ' ';
-        foreach ($this->Supplies->all() as $record)
+        foreach ($this->supplies->all() as $record)
         {
             $result_supplies .= $this->parser->parse('supplies_admin', $record, true);   
         }
@@ -64,14 +61,13 @@ class administrator_controller extends Application
         $record = $this->session->userdata('record');
 
         // if not there, get them from the database
-        if (empty($record) && ($id !== null)) {
-            
+        if (empty($record) && ($id !== null)) {            
             if ($table == 'stock') {
                 $record = $this->stock->get($id);
             } elseif ($table == 'recipes') {
                 $record = $this->recipes->get($id);
             } elseif ($table == 'supplies') {
-                $record = $this->Supplies->get($id);
+                $record = $this->supplies->get($id);
             } else {
                 echo 'Route accepts only stock, recipes, or supplies!'; 
             }
@@ -111,8 +107,7 @@ class administrator_controller extends Application
             $this->data['quantities_on_hand'] = makeTextField('Quantities on hand', 'quantities_on_hand', $record->quantities_on_hand);   
         } else {
             echo 'Route accepts only stock, recipes, or supplies!'; 
-        }
-        
+        }        
         $this->data['zsubmit'] = makeSubmitButton('Save', 'Submit changes');
 
         // show the editing form
@@ -148,14 +143,13 @@ class administrator_controller extends Application
         $this->data['error_messages'] = $this->parser->parse('admin-errors', ['error_messages' => $result], true);
     }
     
-    /*
     function delete($table, $key = null) {
         $key = $this->session->userdata('key');
         $record = $this->session->userdata('record');
         // only delete if editing an existing record
         if (! empty($record)) {
             if ($table == 'stock') {
-                $this->Stock->delete($key);
+                $this->stock->delete($key);
             } elseif ($table == 'recipes') {
                 $this->recipes->delete($key);
             } elseif ($table == 'supplies') {
@@ -166,37 +160,16 @@ class administrator_controller extends Application
         }
         $this->index();
     }
-    */
-
-    function deleteRecord($table)
-    {
-        $key = $this->session->userdata('key');
-        $record = $this->session->userdata('record');
-        // only delete if editing an existing record
-        if (! empty($record)) {
-            if ($table == 'stock') {
-                $this->Stock->delete($key);
-            } elseif ($table == 'recipes') {
-                $this->recipes->delete($key);
-            } elseif ($table == 'supplies') {
-                $this->supplies->delete($key);
-            } else {
-                echo 'Route accepts only stock, recipes, or supplies!'; 
-            }                
-        }
-        $this->index();
-    }
-
     
     function add($table) {
         $key = NULL;
         
         if ($table == 'stock') {
-            $record = $this->Stock->create();
+            $record = $this->stock->create();
         } elseif ($table == 'recipes') {
-            $record = $this->Recipes->create();
+            $record = $this->recipes->create();
         } elseif ($table == 'supplies') {
-            $record = $this->Supplies->create();
+            $record = $this->supplies->create();
         } else {
             echo 'Route accepts only stock, recipes, or supplies!'; 
         }
@@ -230,38 +203,54 @@ class administrator_controller extends Application
         //$this->error_messages = $this->form_validation->error_array(); 
         
         // check menu code for additions
-        if ($key == null) 
-                if ($this->Stock->exists($record->id))
-                        $this->error_messages[] = 'Duplicate key adding new menu item';
-       
+        if ($key == null)
+            if ($table == 'stock') {
+                if ($this->stock->exists($record->id))
+                    $this->error_messages[] = 'Duplicate key adding new menu item';
+            } elseif ($table == 'recipes') {
+                if ($this->recipes->exists($record->id))
+                    $this->error_messages[] = 'Duplicate key adding new menu item';
+            } elseif ($table == 'supplies') {
+                //if ($this->supplies->exists($record->id))
+                //    $this->error_messages[] = 'Duplicate key adding new menu item';
+            } else {
+                echo 'Route accepts only stock, recipes, or supplies!'; 
+            }     
         // save or not
-        if (! empty($this->error_messages)) {
-                $this->edit($table);
-                return;
+        if (!empty($this->error_messages)) {
+            $this->edit($table);
+            return;
         }
         
         // update our table, finally!
         if ($key == null) {            
             if ($table == 'stock') {
-                $this->Stock->add($record);
+                $response = $this->stock->add($record);
             } elseif ($table == 'recipes') {
-                $this->Recipes->add($record);
+                $response = $this->recipes->add($record);
             } elseif ($table == 'supplies') {
-                $this->Supplies->add($record);
+                $response = $this->supplies->add($record);
             } else {
                 echo 'Route accepts only stock, recipes, or supplies!'; 
             }           
         } else {
             if ($table == 'stock') {
-                $this->Stock->update($record);
+                $response = $this->stock->update($record);
             } elseif ($table == 'recipes') {
-                $this->Recipes->update($record);
+                $response = $this->recipes->update($record);
             } elseif ($table == 'supplies') {
-                $this->Supplies->update($record);
+                $response = $this->supplies->update($record);
             } else {
                 echo 'Route accepts only stock, recipes, or supplies!'; 
             }
-        }    
+            if (isset($response->error))
+                $this->error_messages[] = 'Error reported from server: ' . $response->error;
+        }
+        
+        // remove any data transfer object
+        $this->session->unset_userdata('key');
+        $this->session->unset_userdata('record');
+        
         // and redisplay the list
         $this->index();
     }

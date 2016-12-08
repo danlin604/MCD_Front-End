@@ -139,5 +139,5 @@ $autoload['model'] = array
     'stock',
     'recipes',
     'order',
-    'Supplies'
+    'supplies'
 );
