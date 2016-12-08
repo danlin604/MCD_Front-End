@@ -1,6 +1,6 @@
 <tbody>
   <tr>
-    <td><a href="/admin/edit/recipes/{id}">{id}</a></td>  
+    <td><a class="btn btn-default" role="button" href="/admin/edit/recipes/{id}">{id}</a></td>  
     <td class="mdl-data-table__cell--non-numeric">{name}</td>
     <td class="mdl-data-table__cell--non-numeric">{description}</td>
     <td class="mdl-data-table__cell--non-numeric">{pickel}</td>

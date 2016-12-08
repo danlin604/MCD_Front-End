@@ -30,7 +30,7 @@ class receiving_controller extends Application
 		//$source = $this->supplies_model->all();
 		//$items = array ();
 		$result_supplies = ' ';
-		foreach ($this->supplies->all() as $record)
+		foreach ($this->Supplies->all() as $record)
 		{
 			$result_supplies .= $this->parser->parse('items_recieving', $record, true);
 		}
