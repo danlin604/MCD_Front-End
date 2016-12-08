@@ -45,7 +45,7 @@ class Supplies extends MY_Model {
         {
             $this->rest->initialize(array('server' => REST_SERVER));
             $this->rest->option(CURLOPT_PORT, REST_PORT);
-            return $this->rest->get('/supplies');
+            return $this->rest->get('/maintenance');
         }
 
         // Retrieve an existing DB record as an object
