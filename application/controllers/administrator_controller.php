@@ -12,9 +12,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require APPPATH . '/third_party/restful/libraries/Rest_controller.php';
-
-class administrator_controller extends Rest_Controller 
+class administrator_controller extends Application 
 {    
     function __construct() {
         parent::__construct();
@@ -38,9 +36,9 @@ class administrator_controller extends Rest_Controller
 
         // go through the sources and store the data in there respective arrays
         $result_supplies = ' ';
-        foreach ($this->supplies->all() as $record)
+        foreach ($this->Supplies->all() as $record)
         {
-                $result_supplies .= $this->parser->parse('supplies_admin', $record, true);
+            $result_supplies .= $this->parser->parse('supplies_admin', $finalrecord, true);   
         }
         $this->data['supplies'] = $result_supplies;
 
@@ -73,7 +71,7 @@ class administrator_controller extends Rest_Controller
             } elseif ($table == 'recipes') {
                 $record = $this->recipes->get($id);
             } elseif ($table == 'supplies') {
-                $record = $this->supplies->get($id);
+                $record = $this->Supplies->get($id);
             } else {
                 echo 'Route accepts only stock, recipes, or supplies!'; 
             }
@@ -151,38 +149,27 @@ class administrator_controller extends Rest_Controller
     }
     
     /*
-    // Handle an incoming GET ... return 1 menu item
-    //you would reference that with "backend/maintenance/item/id/6".
-    function item_get()
-    {
-        $key = $this->get('id');
-        $result = $this->Stock->get($key);
-        if ($result != null)
-            $this->response($result, 200);
-        else
-            $this->response(array('error' => 'Menu item not found!'), 404);        
-    }
-    
-    // Handle an incoming POST - add a new menu item
-    // If the item ID is passed as part of the URI, eg POST to "/maintenance/item/id/123"
-    function item_post()
-    {
-        $key = $this->get('id');
-        $record = array_merge(array('id' => $key), $_POST);
-        $this->Stock->add($record);
-        $this->response(array('ok'), 200);
-    }
-    
-    function item_put()
-    {
-        $key = $this->put('id');
-        $record = array_merge(array('id' => $key), $this->_put_args);
-        $this->Stock->update($record);
-        $this->response(array('ok'), 200);
+    function delete($table, $key = null) {
+        $key = $this->session->userdata('key');
+        $record = $this->session->userdata('record');
+        // only delete if editing an existing record
+        if (! empty($record)) {
+            if ($table == 'stock') {
+                $this->Stock->delete($key);
+            } elseif ($table == 'recipes') {
+                $this->recipes->delete($key);
+            } elseif ($table == 'supplies') {
+                $this->supplies->delete($key);
+            } else {
+                echo 'Route accepts only stock, recipes, or supplies!'; 
+            }                
+        }
+        $this->index();
     }
     */
-    
-    function delete($table) {
+
+    function deleteRecord($table)
+    {
         $key = $this->session->userdata('key');
         $record = $this->session->userdata('record');
         // only delete if editing an existing record

@@ -12,5 +12,5 @@
     {quantities_on_hand}
     {zsubmit} 
     <a class="btn btn-default" role="button" href="/admin/cancel">Cancel</a>
-    <a class="btn btn-default" role="button" href="/admin/delete/supplies">Delete</a>
+    <a class="btn btn-default" role="button" href="/admin/deleteRecord/supplies/{fid}">Delete</a>
 </form>
