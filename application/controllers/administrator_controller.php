@@ -16,9 +16,9 @@ class administrator_controller extends Application
 {    
     function __construct() {
         parent::__construct();
-        $this->load->model('Stock');
-        $this->load->model('Recipes');
-        $this->load->model('Supplies');
+        //$this->load->model('Stock');
+        //$this->load->model('Recipes');
+        //$this->load->model('Supplies');
         $this->load->helper('formfields');
         $this->error_messages = array();
     }
@@ -38,7 +38,7 @@ class administrator_controller extends Application
         $result_supplies = ' ';
         foreach ($this->Supplies->all() as $record)
         {
-            $result_supplies .= $this->parser->parse('supplies_admin', $finalrecord, true);   
+            $result_supplies .= $this->parser->parse('supplies_admin', $record, true);   
         }
         $this->data['supplies'] = $result_supplies;
 
@@ -106,7 +106,7 @@ class administrator_controller extends Application
             $this->data['soft_drink'] = makeTextField('Soft drink', 'soft_drink', $record->soft_drink);            
         } elseif ($table == 'supplies') {
             $this->data['receiving_unit'] = makeTextField('Receiving unit', 'receiving_unit', $record->receiving_unit);            
-            $this->data['receiving_cost'] = makeTextField('Receiving unit', 'receiving_cost', $record->receiving_cost);
+            $this->data['receiving_cost'] = makeTextField('Receiving cost', 'receiving_cost', $record->receiving_cost);
             $this->data['stock_unit'] = makeTextField('Stock unit', 'stock_unit', $record->stock_unit);
             $this->data['quantities_on_hand'] = makeTextField('Quantities on hand', 'quantities_on_hand', $record->quantities_on_hand);   
         } else {

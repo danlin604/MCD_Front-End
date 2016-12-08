@@ -138,5 +138,6 @@ $autoload['model'] = array
     'transaction_model',    
     'stock',
     'recipes',
-    'order'
+    'order',
+    'Supplies'
 );
