@@ -5,7 +5,6 @@
 <form action="/admin/save/recipes" method="post" enctype="multipart/form-data">
     {fid}
     {fname}
-    {fdescription}
     {ketchup}
     {tomato}
     {mustard}

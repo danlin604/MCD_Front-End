@@ -25,7 +25,6 @@
     <tr>
       <th class="mdl-data-table__cell--non-numeric">ID</th>  
       <th class="mdl-data-table__cell--non-numeric">Name</th>
-      <th class="mdl-data-table__cell--non-numeric">Description</th>
       <th class="mdl-data-table__cell--non-numeric">Pickel</th>
       <th class="mdl-data-table__cell--non-numeric">ketchup</th>
       <th class="mdl-data-table__cell--non-numeric">tomato</th>

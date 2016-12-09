@@ -7,10 +7,10 @@ class Order extends CI_Model {
         parent::__construct();
         if(is_array($state))
         {
-        	foreach($state as $key => $value)
-        	{
-        		$this->$key = $value;
-        	}
+            foreach($state as $key => $value)
+            {
+                    $this->$key = $value;
+            }
         } else if ($state != null) {
             $xml = simplexml_load_file($state);
             $this->number = (int) $xml->number;
@@ -28,7 +28,6 @@ class Order extends CI_Model {
         	$this->datetime = null;
         	$this->items = array();
         }
-
     }
 
 
@@ -103,13 +102,11 @@ class Order extends CI_Model {
     public function total() 
     {
         $total = 0;
-
         foreach($this->items as $key => $value) 
         {
             $menu = $this->stock->get($key);
             $total += $value * $menu->price;
-        }
-        
+        }        
         return $total;
     }
 
