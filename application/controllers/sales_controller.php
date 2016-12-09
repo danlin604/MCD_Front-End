@@ -8,19 +8,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class sales_controller extends Application
 {
-	function __construct() 
+    function __construct() 
     {
         parent::__construct();
     }
 
 	public function index()
 	{
-		if($this->session->has_userdata('order'))
-		{
-			$this->keep_shopping();
-		} else {
-			$this->summarize();
-		}
+            if($this->session->has_userdata('order'))
+            {
+                    $this->keep_shopping();
+            } else {
+                    $this->summarize();
+            }
 	}
 
 	public function summarize()

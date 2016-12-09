@@ -7,22 +7,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class homepage_controller extends Application
 {
-
 	public function index()
 	{
-		//view we want to show
-		$this->data['pagebody'] = 'homepage_view';
+            $this->summarize();
+	}
+        
+        public function summarize()
+	{
+            $this->load->helper('directory');
+            $candidates = directory_map('../data/');
+            $parms = array();
+            $profit = 0.00;
+            $orders = 0;
+            $customers = 0;
+            foreach ($candidates as $filename) {
+               if (substr($filename,0,5) == 'order') 
+               {
+                    // restore that order object
+                    $order = new Order('../data/' . $filename);
+                    $orders += 1;
+                    $customers += 1;
+                    $profit += $order->total(); 
+                }
+            }
+            $parms[] = array(
+                'orders' => $orders,
+                'profit' => $profit,
+                'traffic' => $customers * 6
+            );
 
-		// build the list of authors, to pass on to our view
-		$source = $this->transaction_model->all();
-		$items = array();
-		foreach ($source as $record)
-		{
-			$items[] = array ('id' => $record['id'], 'name' => $record['name'], 'cost' => $record['cost']);
-		}
-		$this->data['items'] = $items;
-				
-		$this->render(); 
+            $this->data['orders'] = $parms;
+            $this->data['pagebody'] = 'homepage_view';
+            $this->render(); 
 	}
 
 }

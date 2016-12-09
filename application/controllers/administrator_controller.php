@@ -79,15 +79,14 @@ class administrator_controller extends Application
 
         $this->data['action'] = (empty($key)) ? 'Adding' : 'Editing';
 
-        // build the form fields
-        
+        // build the form fields        
         $this->data['fid'] = makeTextField('Code', 'id', $record->id);
-        $this->data['fname'] = makeTextField('Name', 'name', $record->name);
-        $this->data['fdescription'] = makeTextArea('Description', 'description', $record->description);
+        $this->data['fname'] = makeTextField('Name', 'name', $record->name);       
         
         if ($table == 'stock') {
+            $this->data['fdescription'] = makeTextArea('Description', 'description', $record->description);
             $this->data['fprice'] = makeTextField('Price, each', 'price', $record->price);
-            $this->data['fcurrAvail'] = makeTextField('Availiable Quantity', 'currAvail', $record->currAvail);
+            $this->data['fcurrAvail'] = makeTextField('Availiable Quantity', 'currAvail', $record->currAvail);            
         } elseif ($table == 'recipes') {
             $this->data['pickel'] = makeTextField('Pickle', 'pickel', $record->pickel);
             $this->data['ketchup'] = makeTextField('Ketchup', 'ketchup', $record->ketchup);
@@ -101,6 +100,7 @@ class administrator_controller extends Application
             $this->data['fries'] = makeTextField('Fries', 'fries', $record->fries);
             $this->data['soft_drink'] = makeTextField('Soft drink', 'soft_drink', $record->soft_drink);            
         } elseif ($table == 'supplies') {
+            $this->data['fdescription'] = makeTextArea('Description', 'description', $record->description);
             $this->data['receiving_unit'] = makeTextField('Receiving unit', 'receiving_unit', $record->receiving_unit);            
             $this->data['receiving_cost'] = makeTextField('Receiving cost', 'receiving_cost', $record->receiving_cost);
             $this->data['stock_unit'] = makeTextField('Stock unit', 'stock_unit', $record->stock_unit);
@@ -158,6 +158,8 @@ class administrator_controller extends Application
                 echo 'Route accepts only stock, recipes, or supplies!'; 
             }                
         }
+        $this->session->unset_userdata('key');
+        $this->session->unset_userdata('record');
         $this->index();
     }
     
@@ -194,14 +196,7 @@ class administrator_controller extends Application
         foreach(get_object_vars($record) as $index => $value)
             if (isset($incoming[$index]))
                 $record->$index = $incoming[$index];
-        $this->session->set_userdata('record',$record);
-
-        // validate
-        //$this->load->library('form_validation');
-        //$this->form_validation->set_rules($this->Stock->rules());
-        //if ($this->form_validation->run() != TRUE)
-        //$this->error_messages = $this->form_validation->error_array(); 
-        
+        $this->session->set_userdata('record',$record);        
         // check menu code for additions
         if ($key == null)
             if ($table == 'stock') {

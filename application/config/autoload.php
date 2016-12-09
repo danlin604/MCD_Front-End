@@ -134,8 +134,7 @@ $autoload['language'] = array();
 */
 
 $autoload['model'] = array
-(
-    'transaction_model',    
+(  
     'stock',
     'recipes',
     'order',

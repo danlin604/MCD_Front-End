@@ -69,10 +69,13 @@ class Supplies extends MY_Model {
             //$this->rest->initialize(array('server' => REST_SERVER));
             //$this->rest->option(CURLOPT_PORT, REST_PORT);
             //$retrieved = $this->rest->put('/admin/edit/supplies/' . $record['id'], $record);
-
+            var_dump(json_encode($record));
+            die();
             $this->rest->initialize(array('server' => REST_SERVER));
             $this->rest->option(CURLOPT_PORT, REST_PORT);
-            return $this->rest->put('/maintenance/item/id/' . $record->id, json_encode($record));
+            echo $this->rest->put('/maintenance/item/id/' . $record->id, json_encode($record));
+            die();
+            //return $this->rest->put('/maintenance/item/id/' . $record->id, json_encode($record));
         }
         
         // Add a record to the DB

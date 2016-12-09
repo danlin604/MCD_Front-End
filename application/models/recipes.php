@@ -12,7 +12,6 @@ class Recipes extends MY_Model {
             $config = [
                 ['field'=>'id', 'label'=>'Stock code', 'rules'=> 'required|integer'],
                 ['field'=>'name', 'label'=>'Item name', 'rules'=> 'required'],
-                ['field'=>'description', 'label'=>'Item description', 'rules'=> 'required|max_length[256]'],
                 ['field'=>'pickel', 'label'=>'pickel', 'rules'=> 'required|integer'],
                 ['field'=>'ketchup', 'label'=>'ketchup', 'rules'=> 'required|integer'],
                 ['field'=>'tomato', 'label'=>'tomato', 'rules'=> 'required|integer'],

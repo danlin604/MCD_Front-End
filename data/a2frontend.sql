@@ -44,7 +44,6 @@ DROP TABLE IF EXISTS `recipes`;
 CREATE TABLE `recipes` (
   `id` int(11) NOT NULL,
   `name` varchar(256) NOT NULL,
-  `description` varchar(256) NOT NULL,
   `pickel` int(11) NOT NULL,
   `ketchup` int(11) NOT NULL,
   `tomato` int(11) NOT NULL,
@@ -62,13 +61,13 @@ CREATE TABLE `recipes` (
 -- Dumping data for table `recipes`
 --
 
-INSERT INTO `recipes` (`id`, `name`, `description`, `pickel`, `ketchup`, `tomato`, `mustard`, `onions`, `buns`, `meat_patty`, `mac_sauce`, `fish_patty`, `fries`, `soft_drink`) VALUES
-(1, 'Big Mac', 'One of a kind, legendary Big Mac, made with two 100% Canadian beef patties, special sauce, crisp lettuce, processed cheddar cheese, pickles and onions on a toasted sesame seed bun. Nothing compares to the taste.', 2, 0, 0, 0, 3, 1, 2, 1, 0, 0, 0),
-(2, 'Double Big Mac', 'One of a kind, Double Big Mac, made with four 100% Canadian beef patties, special sauce, crisp lettuce, processed cheddar cheese, pickles and onions on a toasted sesame seed bun. Nothing compares to the taste.', 4, 0, 0, 0, 4, 1, 4, 2, 0, 0, 0),
-(3, 'Cheeseburger', 'A slice of melted processed cheddar cheese on a juicy, 100% pure Canadian beef patty with tangy pickles and onions, ketchup and mustard on a freshly-toasted bun.', 2, 1, 1, 1, 0, 2, 1, 0, 0, 0, 0),
-(4, 'Filet-O-Fish', 'Fresh from the deep, cold waters of Alaska’s Bering Sea, this light filet of Alaska Pollock is all yours. Pure temptation on a lightly steamed bun, topped with processed cheddar cheese and tangy tartar sauce.', 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0),
-(5, 'Fries', 'McDonald’s World Famous Fries are always a delicious choice. Served perfectly golden, our fries promise a one-of-a-kind taste because they’re made from the finest potatoes from Canadian farms. Mmmm… of course you want fries with that!', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(6, 'Soft Drink', 'A cold and refreshing companion to any meal on our menu.', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+INSERT INTO `recipes` (`id`, `name`, `pickel`, `ketchup`, `tomato`, `mustard`, `onions`, `buns`, `meat_patty`, `mac_sauce`, `fish_patty`, `fries`, `soft_drink`) VALUES
+(1, 'Big Mac', 2, 0, 0, 0, 3, 1, 2, 1, 0, 0, 0),
+(2, 'Double Big Mac', 4, 0, 0, 0, 4, 1, 4, 2, 0, 0, 0),
+(3, 'Cheeseburger', 2, 1, 1, 1, 0, 2, 1, 0, 0, 0, 0),
+(4, 'Filet-O-Fish', 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0),
+(5, 'Fries', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
+(6, 'Soft Drink', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
