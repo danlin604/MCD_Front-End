@@ -9,7 +9,7 @@ class Order extends CI_Model {
         {
             foreach($state as $key => $value)
             {
-                    $this->$key = $value;
+                $this->$key = $value;
             }
         } else if ($state != null) {
             $xml = simplexml_load_file($state);

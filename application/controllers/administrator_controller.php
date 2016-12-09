@@ -242,6 +242,7 @@ class administrator_controller extends Application
                 $this->error_messages[] = 'Error reported from server: ' . $response->error;
         }
         
+        
         // remove any data transfer object
         $this->session->unset_userdata('key');
         $this->session->unset_userdata('record');

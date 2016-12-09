@@ -3,7 +3,7 @@
 /**
  * Modified to use REST client to get port data from our server.
  */
-define('REST_SERVER', 'http://a2backend.local:4711');            // the REST server host
+define('REST_SERVER', 'http://a2backend.local');            // the REST server host
 define('REST_PORT', $_SERVER['SERVER_PORT']);               // the port you are running the server on
 
 class Supplies extends MY_Model {
@@ -52,11 +52,7 @@ class Supplies extends MY_Model {
 
         // Delete a record from the DB
         function delete($key, $key2 = null)
-        {
-            //$this->rest->initialize(array('server' => REST_SERVER));
-            //$this->rest->option(CURLOPT_PORT, REST_PORT);
-            //return $this->rest->delete('/admin/delete/supplies' . $key); ////// dont know if we need the key here... lol route is different
-        
+        {        
             $this->rest->initialize(array('server' => REST_SERVER));
             $this->rest->option(CURLOPT_PORT, REST_PORT);
             $result = $this->rest->delete('/maintenance/item/' . $key);
@@ -66,16 +62,9 @@ class Supplies extends MY_Model {
         // Update a record in the DB
         function update($record)
         {
-            //$this->rest->initialize(array('server' => REST_SERVER));
-            //$this->rest->option(CURLOPT_PORT, REST_PORT);
-            //$retrieved = $this->rest->put('/admin/edit/supplies/' . $record['id'], $record);
-            var_dump(json_encode($record));
-            die();
             $this->rest->initialize(array('server' => REST_SERVER));
             $this->rest->option(CURLOPT_PORT, REST_PORT);
-            echo $this->rest->put('/maintenance/item/id/' . $record->id, json_encode($record));
-            die();
-            //return $this->rest->put('/maintenance/item/id/' . $record->id, json_encode($record));
+            return $this->rest->put('/maintenance/item/id/' . $record->id, json_encode($record));
         }
         
         // Add a record to the DB
@@ -83,7 +72,7 @@ class Supplies extends MY_Model {
         {
             $this->rest->initialize(array('server' => REST_SERVER));
             $this->rest->option(CURLOPT_PORT, REST_PORT);
-            return $this->rest->post('/maintenance/item/id/' . $record->id, $record);
+            return $this->rest->post('/maintenance/item', json_encode($record));
         }
 
 }
