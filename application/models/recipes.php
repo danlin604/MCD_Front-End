@@ -7,14 +7,7 @@ class Recipes extends MY_Model {
 	{
 		parent::__construct();
 	}
-        
-        /*
-        `id` 			int(11) 	NOT NULL,
-        `name` 			varchar(256) 	NOT NULL,
-        `description` 		varchar(256) 	NOT NULL,
-        `price` 		decimal(10,2) 	NOT NULL,
-        `currAvail` 		int(11) 	NOT NULL        
-        */        
+          
         function rules() {
             $config = [
                 ['field'=>'id', 'label'=>'Stock code', 'rules'=> 'required|integer'],
@@ -31,7 +24,6 @@ class Recipes extends MY_Model {
                 ['field'=>'fish patty', 'label'=>'fish patty', 'rules'=> 'required|integer'],
                 ['field'=>'fries', 'label'=>'fries', 'rules'=> 'required|integer'],
                 ['field'=>'soft drink', 'label'=>'soft drink', 'rules'=> 'required|integer']
-
             ];
             return $config;
         }

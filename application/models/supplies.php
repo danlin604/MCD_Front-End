@@ -11,35 +11,12 @@ class Supplies extends MY_Model {
 	// constructor
 	function __construct()
 	{
-		parent::__construct();
+            parent::__construct();
 
-        //*** Explicitly load the REST libraries. 
-        $this->load->library(['curl', 'format', 'rest']);
+            //*** Explicitly load the REST libraries. 
+            $this->load->library(['curl', 'format', 'rest']);
 	}
         
-        /*
-        `id` 			int(11) 	NOT NULL,
-        `name` 			varchar(256) 	NOT NULL,
-        `description` 		varchar(256) 	NOT NULL,
-        `price` 		decimal(10,2) 	NOT NULL,
-        `currAvail` 		int(11) 	NOT NULL        
-        */     
-        /*   
-        function rules() {
-            $config = [
-                ['field'=>'id', 'label'=>'Stock code', 'rules'=> 'required|integer'],
-                ['field'=>'name', 'label'=>'Item name', 'rules'=> 'required'],
-                ['field'=>'description', 'label'=>'Item description', 'rules'=> 'required|max_length[256]'],
-                ['field'=>'receiving_unit', 'label'=>'Recieving unit', 'rules'=> 'required'],
-                ['field'=>'receiving_cost', 'label'=>'Recieving cost', 'rules'=> 'required'],
-                ['field'=>'stock_unit', 'label'=>'Stock unit', 'rules'=> 'required'],
-                ['field'=>'receiving_unit', 'label'=>'Recieving unit', 'rules'=> 'required'],
-                ['field'=>'quantities_on_hand', 'label'=>'Quantities on hand', 'rules'=> 'required']
-            ];
-            return $config;
-        }
-        */
-
         // Return all records as an array of objects
         function all()
         {
@@ -61,36 +38,49 @@ class Supplies extends MY_Model {
         // populate it.
         function create()
         {
-            $names = ['id','name','description','price','picture','category'];
+            /*
+            $names = ['id','name','description','receiving_unit','receiving_cost','stock_unit', 'quantities_on_hand'];
             $object = new StdClass;
             foreach ($names as $name)
                 $object->$name = "";
             return $object;
+            */
+            $this->rest->initialize(array('server' => REST_SERVER));
+            $this->rest->option(CURLOPT_PORT, REST_PORT);
+            return $this->rest->get('/maintenance/create');
         }
 
         // Delete a record from the DB
         function delete($key, $key2 = null)
         {
-                $this->rest->initialize(array('server' => REST_SERVER));
-                $this->rest->option(CURLOPT_PORT, REST_PORT);
-                return $this->rest->delete('/admin/delete/supplies' . $key); ////// dont know if we need the key here... lol route is different
+            //$this->rest->initialize(array('server' => REST_SERVER));
+            //$this->rest->option(CURLOPT_PORT, REST_PORT);
+            //return $this->rest->delete('/admin/delete/supplies' . $key); ////// dont know if we need the key here... lol route is different
+        
+            $this->rest->initialize(array('server' => REST_SERVER));
+            $this->rest->option(CURLOPT_PORT, REST_PORT);
+            $result = $this->rest->delete('/maintenance/item/' . $key);
+            return $result;                
         }
 
         // Update a record in the DB
         function update($record)
         {
-                $this->rest->initialize(array('server' => REST_SERVER));
-                $this->rest->option(CURLOPT_PORT, REST_PORT);
-                $retrieved = $this->rest->put('/admin/edit/supplies/' . $record['id'], $record);
+            //$this->rest->initialize(array('server' => REST_SERVER));
+            //$this->rest->option(CURLOPT_PORT, REST_PORT);
+            //$retrieved = $this->rest->put('/admin/edit/supplies/' . $record['id'], $record);
+
+            $this->rest->initialize(array('server' => REST_SERVER));
+            $this->rest->option(CURLOPT_PORT, REST_PORT);
+            return $this->rest->put('/maintenance/item/id/' . $record->id, json_encode($record));
         }
-
-
+        
         // Add a record to the DB
         function add($record)
         {
-                $this->rest->initialize(array('server' => REST_SERVER));
-                $this->rest->option(CURLOPT_PORT, REST_PORT);
-                $retrieved = $this->rest->post('/admin/add/' . $record['id'], $record);
+            $this->rest->initialize(array('server' => REST_SERVER));
+            $this->rest->option(CURLOPT_PORT, REST_PORT);
+            return $this->rest->post('/maintenance/item/id/' . $record->id, $record);
         }
 
 }

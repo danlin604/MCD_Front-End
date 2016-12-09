@@ -65,39 +65,6 @@ $route['admin/save/(:any)'] = 'administrator_controller/save/$1';
 $route['admin/delete/(:any)'] = 'administrator_controller/delete/$1';
 $route['admin/add/(:any)'] = 'administrator_controller/add/$1';
 
-//$route['admin/delete'] = 'administrator_controller/index_delete';
-/*
-$route['admin/recipeTable/edit/(:num)'] = 'administrator_controller/recipeEdit/$1';
-$route['admin/recipeTable/delete']  = 'administrator_controller/recipeDel';
-$route['admin/recipeTable/save']  = 'administrator_controller/recipeSave';
-
-$route['admin/stockTable/edit/(:num)']  = 'administrator_controller/stockEdit/$1';
-$route['admin/stockTable/delete']  = 'administrator_controller/stockDel';
-$route['admin/stockTable/save']   = 'administrator_controller/stockSave';
-
-$route['admin/suppliesTable/edit/(:num)']  = 'administrator_controller/suppliesEdit/$1';
-$route['admin/suppliesTable/delete']  = 'administrator_controller/suppliesDel';
-$route['admin/suppliesTable/save']   = 'administrator_controller/suppliesSave';
-*/
-
 $route['default_controller'] = 'homepage_controller';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-
-
-/*
-$route['sleep'] = 'first/zzz';
-$route['show/(:num)'] = 'first/gimme/$1';
-
-$route['lock/(:any)/(:any)'] = 'welcome/shucks';
-$route['comp(\d+)/(.*)'] = 'wise/bingo';
-$route['dunno'] = function() {
-	$source = './assets/images/surprise.jpg'; // an image you provide
-	// set the mime type for that image
-	header("Content-type: image/jpeg"); 
-	header('Content-Disposition: inline');
-	readfile($source); // dish it
-	die(); // and we don't have to go any further
-};                 
-$route['^[a-zA-Z]{4}/bingo'] = 'bingo';
-*/

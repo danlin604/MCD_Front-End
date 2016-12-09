@@ -48,9 +48,7 @@ class Transaction_Model extends CI_Model
 	// Get all data
 	public function all()
 	{
-		return $this->data;
+            return $this->data;
 	}
 	
 }
-
-?>
