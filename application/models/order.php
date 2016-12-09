@@ -109,4 +109,23 @@ class Order extends CI_Model {
         }        
         return $total;
     }
+
+    public function updateStock($which=null)
+    {
+        if($which == null)
+        {
+            return;
+        }
+
+        $menu = $this->stock->get($which);
+        $val = $menu->currAvail - 1;
+        $record = array (
+                    'id' => $menu->id,
+                    'name' => $menu->name,
+                    'description' => $menu->description,
+                    'price' => $menu->price,
+                    'currAvail' => $val
+            );
+        $this->stock->update($record);
+    }
 }
