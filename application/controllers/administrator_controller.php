@@ -175,7 +175,7 @@ class administrator_controller extends Application
         }
         $this->session->set_userdata('key', $key);
         $this->session->set_userdata('record', $record);    
-        $this->edit($table,null);
+        $this->edit($table);
     }
     
     function save($table) {

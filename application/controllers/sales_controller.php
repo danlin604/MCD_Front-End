@@ -114,7 +114,7 @@ class sales_controller extends Application
 	{
 		$order = new Order($this->session->userdata('order'));
 		$order->additem($what);
-
+		$order->updateStock($what);
 		$this->session->set_userdata('order', (array) $order);
 		redirect('/sales_controller');
 	}
